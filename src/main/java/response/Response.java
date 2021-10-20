@@ -1,9 +1,9 @@
 package response;
 
 public class Response {
-    private int statusCode;//状态码
-    private String content;//内容
-    private String contentType;//设定内容类型
+    private int statusCode;// 状态码
+    private String content;// 内容
+    private String contentType;// 设定内容类型
 
     public void setStatusCode(int code) {
         this.statusCode = code;
@@ -30,12 +30,9 @@ public class Response {
     }
 
     public String getPhrase(int code) {
-        if (code == 200)
-        {
+        if (code == 200) {
             return "ok";
-        }
-        else if (code == 404)
-        {
+        } else if (code == 404) {
             return "not found";
         }
 
