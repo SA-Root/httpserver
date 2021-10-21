@@ -50,6 +50,7 @@ public class Bootstrap {
             if (ClientSocketQueue.remainingCapacity() == 0) {
                 try {
                     var tmpSocket = ClientSocketQueue.poll();
+                    //close client socket to terminate worker
                     tmpSocket.close();
                     System.out.printf("[INFO]Connection with %s closed.\n", tmpSocket.getInetAddress().toString());
                 } catch (Exception e) {
