@@ -19,7 +19,7 @@ import com.chakra.abnormality.ChakraWarning;
  * @author Chakra
  */
 public class Bootstrap {
-    private static Config cfg;
+    public static Config cfg;
     private static String pwd;
 
     public static void main(String[] args) {
