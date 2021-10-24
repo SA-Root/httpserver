@@ -21,7 +21,6 @@ public class Log {
 			}
 			outputStream = new FileOutputStream(fp);
 		} catch (Exception e) {
-			// TODO: handle exception
 			System.err.println(e);
 		}
 	}
@@ -34,7 +33,6 @@ public class Log {
 			// 写入字节流
 			outputStream.write(logDetail.toString().getBytes());
 		} catch (Exception e) {
-			// TODO: handle exception
 			System.err.println(e);
 		}
 	}

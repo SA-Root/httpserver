@@ -85,12 +85,6 @@ public class Bootstrap {
             System.out.println("[INFO]Server socket successfully opened.");
         } catch (Exception e) {
             ChakraError.E0006(port);
-            try {
-                serverSocket.close();
-                System.out.println("[INFO]Server socket successfully closed.");
-            } catch (Exception ce) {
-                ChakraError.E0007();
-            }
             System.exit(0);
         }
         return;

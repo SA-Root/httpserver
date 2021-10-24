@@ -1,5 +1,8 @@
 package com.chakra.abnormality;
 
+/**
+ * All the warnings in main program
+ */
 public class ChakraWarning {
     /**
      * W0001: No designated port
@@ -26,5 +29,12 @@ public class ChakraWarning {
      */
     public static void W0003(String arg) {
         System.out.printf("[WARNING 0003]No webroot specified, using default path \"%s\".\n", arg);
+    }
+
+    /**
+     * Log record failure
+     */
+    public static void W0004() {
+        System.out.println("[WARNING 0004]Failed to write log.");
     }
 }

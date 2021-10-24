@@ -1,5 +1,8 @@
 package com.chakra.abnormality;
 
+/**
+ * All the errors in main program
+ */
 public class ChakraError {
     /**
      * E0001: Invalid port number
@@ -96,7 +99,36 @@ public class ChakraError {
     /**
      * E0009: Unable to close client socket
      */
-    public static void E0009(){
+    public static void E0009() {
         System.out.println("[ERROR 0009]Failed to close client socket.");
+        System.out.println("[INFO]A new connection has been rejected.");
+    }
+
+    /**
+     * E0010: Could not lock onto client socket stream
+     */
+    public static void E0010() {
+        System.out.println("[ERROR 0010]Failed to hook client socket stream.");
+    }
+
+    /**
+     * E0011: Request resolution failure
+     */
+    public static void E0011() {
+        System.out.println("[ERROR 0011]Failed to resolve request.");
+    }
+
+    /**
+     * E0012: Response generation failure
+     */
+    public static void E0012() {
+        System.out.println("[ERROR 0012]Failed to generate response.");
+    }
+
+    /**
+     * E0013: Response writeback failure
+     */
+    public static void E0013() {
+        System.out.println("[ERROR 0013]Failed to write response.");
     }
 }

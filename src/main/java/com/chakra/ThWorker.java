@@ -13,7 +13,11 @@ import response.Response;
 import response.CGIResponse;
 import response.static_response;
 import com.chakra.abnormality.ChakraError;
+import com.chakra.abnormality.ChakraWarning;
 
+/**
+ * ONE-TIME client request handler
+ */
 public class ThWorker implements Runnable {
     private final Socket socket;
 
@@ -21,6 +25,24 @@ public class ThWorker implements Runnable {
         socket = sock;
     }
 
+    /**
+     * Clean-up method
+     */
+    private void CloseSocket() {
+        try {
+            socket.close();
+        } catch (Exception e) {
+            ChakraError.E0009();
+        }
+    }
+
+    /**
+     * Acquire log info
+     * 
+     * @param request  See {@link request.Request}
+     * @param response See {@link response.Response}
+     * @return log structure
+     */
     private LogDetail getLogDetail(Request request, Response response) {
         LogDetail LogDetail = new LogDetail();
         LogDetail.setIpAddress(socket.getInetAddress().toString().substring(1));
@@ -41,20 +63,27 @@ public class ThWorker implements Runnable {
      */
     @Override
     public void run() {
+        // hook socket stream
         InputStream inputStream = null;
         OutputStream outputStream = null;
         try {
             inputStream = socket.getInputStream();
             outputStream = socket.getOutputStream();
         } catch (IOException e) {
-
+            ChakraError.E0010();
+            CloseSocket();
+            return;
         }
+        // parse request
         Request request = null;
         try {
             request = Request.parseFromInputStream(inputStream);
         } catch (Exception e) {
-
+            ChakraError.E0011();
+            CloseSocket();
+            return;
         }
+        // generate response
         if (!request.isErr()) {
             Response response = null;
             try {
@@ -64,16 +93,18 @@ public class ThWorker implements Runnable {
                     response = static_response.response(request);
                 }
             } catch (Exception e) {
-
+                ChakraError.E0012();
+                CloseSocket();
+                return;
             }
-
+            // write log
             var logInfo = getLogDetail(request, response);
             try {
                 Log.writeLog(logInfo, Bootstrap.cfg.webroot());
             } catch (Exception e) {
-
+                ChakraWarning.W0004();
             }
-
+            // write response
             try {
                 if (request.getMethod().equals("HEAD")) {
                     outputStream.write(response.head().getBytes());
@@ -82,12 +113,9 @@ public class ThWorker implements Runnable {
                 }
             } catch (Exception e) {
 
+                CloseSocket();
+                return;
             }
-        }
-        try {
-            socket.close();
-        } catch (Exception e) {
-            ChakraError.E0009();
         }
     }
 
