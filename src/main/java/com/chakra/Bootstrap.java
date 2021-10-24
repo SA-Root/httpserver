@@ -21,36 +21,35 @@ import com.chakra.abnormality.ChakraWarning;
 public class Bootstrap {
     public static Config cfg;
     private static String pwd;
+    private static ServerSocket serverSocket;
 
     public static void main(String[] args) {
         InitializeArgs(args);
-        Launch(SetupSocket(cfg.Port()));
+        SetupSocket(cfg.Port());
+        Launch();
     }
 
     /**
      * Launch the server
      * 
-     * @param serverSocket opened server socket
      */
-    private static void Launch(ServerSocket serverSocket) {
+    private static void Launch() {
         var ThPool = Executors.newFixedThreadPool(cfg.maxThreads());
         var ClientSocketQueue = new ArrayBlockingQueue<Socket>(cfg.maxThreads(), true);
         while (true) {
             Socket csocket = null;
             try {
                 csocket = serverSocket.accept();
-            } 
-            catch(SocketTimeoutException e){
+            } catch (SocketTimeoutException e) {
                 break;
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 ChakraError.E0008();
                 break;
             }
             if (ClientSocketQueue.remainingCapacity() == 0) {
                 try {
                     var tmpSocket = ClientSocketQueue.poll();
-                    //close client socket to terminate worker
+                    // close client socket to terminate worker
                     tmpSocket.close();
                     System.out.printf("[INFO]Connection with %s closed.\n", tmpSocket.getInetAddress().toString());
                 } catch (Exception e) {
@@ -77,10 +76,9 @@ public class Bootstrap {
      * Setup listening port on server
      * 
      * @param port listeing port
-     * @return listening socket
      */
-    private static ServerSocket SetupSocket(int port) {
-        ServerSocket serverSocket = null;
+    private static void SetupSocket(int port) {
+        serverSocket = null;
         try {
             serverSocket = new ServerSocket(port);
             // serverSocket.setSoTimeout(1000);
@@ -95,7 +93,7 @@ public class Bootstrap {
             }
             System.exit(0);
         }
-        return serverSocket;
+        return;
     }
 
     /**

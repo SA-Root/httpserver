@@ -3,7 +3,6 @@ package log;
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalDateTime;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 
 public class Log {
