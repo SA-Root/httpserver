@@ -112,7 +112,7 @@ public class ThWorker implements Runnable {
                     outputStream.write(response.compact().getBytes());
                 }
             } catch (Exception e) {
-
+                ChakraError.E0013();
                 CloseSocket();
                 return;
             }
