@@ -8,21 +8,17 @@ public class LogDetail {
     private String filePath; // 请求文件的位置和名字
     private String statusCode; // HTTP状态码
     private String fileSize; // 请求文件的大小
-    private String referPage; // The web page which referred the hit
     private String UA;
 
     // 获取并初始化成员变量
-
 
     public void setUA(String uA) {
         UA = uA;
     }
 
-
     public void setIpAddress(String ipAddress) {
         this.ipAddress = ipAddress;
     }
-
 
     public void setLoginID(String loginID) {
         this.loginID = loginID;
@@ -46,33 +42,6 @@ public class LogDetail {
 
     public void setFileSize(String fileSize) {
         this.fileSize = fileSize;
-    }
-
-    // 检查是否有字符串值为空
-    private boolean checkEmpty() {
-        if (!this.ipAddress.isEmpty()) {
-            System.out.println("Log error: ip address is empty!");
-            return true;
-        }  else if (!this.loginID.isEmpty()) {
-            System.out.println("Log error: login ID is empty!");
-            return true;
-        } else if (!this.hitTime.isEmpty()) {
-            System.out.println("Log error: hit time is empty!");
-            return true;
-        } else if (!this.requestMethod.isEmpty()) {
-            System.out.println("Log error: request method is empty!");
-            return true;
-        } else if (!this.filePath.isEmpty()) {
-            System.out.println("Log error: file path is empty!");
-            return true;
-        } else if (!this.statusCode.isEmpty()) {
-            System.out.println("Log error: status code is empty!");
-            return true;
-        } else if (!this.fileSize.isEmpty()) {
-            System.out.println("Log error: file size is empty!");
-            return true;
-        }
-        return false;
     }
 
     // 213.60.233.243 - - [25/May/2018:00:17:09 +1200] "GET /internet/index.html
