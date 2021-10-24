@@ -131,4 +131,11 @@ public class ChakraError {
     public static void E0013() {
         System.out.println("[ERROR 0013]Failed to write response.");
     }
+
+    /**
+     * E9999: [DEBUG ONLY]temporary runtime code flag
+     */
+    public static void E9999() {
+        System.out.println("************E9999 Temporary flag triggered.************");
+    }
 }

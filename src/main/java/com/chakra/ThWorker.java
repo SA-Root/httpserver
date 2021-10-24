@@ -26,13 +26,16 @@ public class ThWorker implements Runnable {
     }
 
     /**
-     * Clean-up method
+     * Clean-up method: close client socket
      */
     private void CloseSocket() {
-        try {
-            socket.close();
-        } catch (Exception e) {
-            ChakraError.E0009();
+        if (!socket.isClosed()) {
+            try {
+                socket.close();
+                System.out.printf("[INFO]Connection with %s closed.\n", socket.getInetAddress().toString());
+            } catch (Exception e) {
+                ChakraError.E0009();
+            }
         }
     }
 
