@@ -10,6 +10,8 @@ import log.LogDetail;
 import log.Log;
 import request.Request;
 import response.Response;
+import response.CGIResponse;
+import response.static_response;
 import com.chakra.abnormality.ChakraError;
 
 public class ThWorker implements Runnable {
@@ -39,30 +41,38 @@ public class ThWorker implements Runnable {
      */
     @Override
     public void run() {
-        InputStream inputStream;
-        OutputStream outputStream;
+        InputStream inputStream = null;
+        OutputStream outputStream = null;
         try {
             inputStream = socket.getInputStream();
             outputStream = socket.getOutputStream();
         } catch (IOException e) {
 
         }
-        Request request;
+        Request request = null;
         try {
             request = Request.parseFromInputStream(inputStream);
         } catch (Exception e) {
 
         }
         if (!request.isErr()) {
-            Response response;
-            if (request.getResource().endsWith("cgi")) {
-                response = CGIResponse.response(request);
-            } else {
-                response = StaticResponse.response(request);
+            Response response = null;
+            try {
+                if (request.getResource().endsWith("cgi")) {
+                    response = CGIResponse.response(request);
+                } else {
+                    response = static_response.response(request);
+                }
+            } catch (Exception e) {
+
             }
 
             var logInfo = getLogDetail(request, response);
-            Log.writeLog(logInfo, Bootstrap.cfg.webroot());
+            try {
+                Log.writeLog(logInfo, Bootstrap.cfg.webroot());
+            } catch (Exception e) {
+
+            }
 
             try {
                 if (request.getMethod().equals("HEAD")) {
