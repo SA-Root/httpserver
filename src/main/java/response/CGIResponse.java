@@ -12,7 +12,7 @@ import java.util.List;
 public class CGIResponse {
 
     public static Response response(Request request) {
-        String exe = Bootstrap.cfg.webroot() + "/cgibin" + request.getResource();
+        String exe = Bootstrap.cfg.webroot() + "cgibin" + request.getResource();
         Response response = new Response();
 
         try {
@@ -45,7 +45,7 @@ public class CGIResponse {
         try {
             // String cmd = file.replaceAll("/", "\\\\");
             System.out.println("cgi_file: " + cgi_file);
-            Process process = Runtime.getRuntime().exec(cgi_file);
+            Process process = Runtime.getRuntime().exec("python "+cgi_file);
 
             OutputStream outputStream = process.getOutputStream();
             outputStream.write(inputs.getBytes());

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="content">
+
+
+<p>Student Number:</p>
+<form action="data.cgi" method="post">
+    <input type="text" name="number" />
+    <button type="submit">submit</button>
+</form>
+</div>
+<div class="dec"></div>
+</body>
+
+<style>
+    * {
+        font-family: consolas;
+    }
+    div.dec {
+        position: fixed;
+        border: 5px solid #828282;
+        height: 400px;
+        width: 800px;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        pointer-events: none;
+    }
+    div.content {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        margin-top: 270px;
+    }
+    p {
+        font-weight: bold;
+        font-size: 2rem;
+    }
+    input {
+        height: 32px;
+        border: 2px solid gray;
+        border-radius: 5px;
+        width: 200px;
+        padding: 0 8px;
+    }
+    button {
+        border: 2px solid black;
+        background: black;
+        color: white;
+        outline: none;
+        height: 36px;
+        padding: 0 8px;
+        border-radius: 3px;
+    }
+</style>
+</html>

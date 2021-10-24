@@ -13,6 +13,11 @@ public class Request {
     private String resource;
     private final Map<String, String> headers;
     private String postData;
+    private String UserAgent;
+
+    public String getUserAgent() {
+        return UserAgent;
+    }
 
     private Request() {
         headers = new HashMap<>();
@@ -51,9 +56,8 @@ public class Request {
         int i;
 
         if (cnt > 0) {
-            String requestInfo = new String(buf);
-
-            System.out.println(requestInfo);
+            String requestInfo = new String(buf).replaceAll("\0+$", "");
+            // System.out.println(requestInfo);
 
             List<String> lines = requestInfo.lines().collect(Collectors.toList());
 
@@ -61,7 +65,7 @@ public class Request {
 
             request.method = tmp[0];
             request.resource = tmp[1];
-
+            request.UserAgent = lines.get(6).substring(12);
             for (i = 1; i < lines.size(); i++) {
                 if (lines.get(i).length() != 0) {
                     String[] pair = lines.get(i).split(":", 2);
@@ -70,7 +74,11 @@ public class Request {
                     break;
             }
 
-            request.postData = lines.get(i + 1);
+            try {
+                request.postData = lines.get(i + 1);
+            } catch (Exception e) {
+                
+            }
 
             return request;
         }

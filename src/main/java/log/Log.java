@@ -2,16 +2,19 @@ package log;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.io.FileOutputStream;
 
 public class Log {
 
 	private static FileOutputStream outputStream = null;
+	private static SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH-mm-ss");
 
 	// 创建一个日志文件，注意目录和Windows的不一样
 	public static void createFile(String webroot) throws IOException {
-		String logName = webroot + "/log/" + LocalDateTime.now().toString() + ".log";
+		String logName = webroot + "log/" + sdf.format(new Date()) + ".log";
 		try {
 			File fp = new File(logName);
 			if (fp.createNewFile()) {

@@ -2,7 +2,6 @@ package log;
 
 public class LogDetail {
     private String ipAddress; // 发出请求的主机ip地址
-    private String identity; // 发出请求的主机身份
     private String loginID; // 访问者login ID
     private String hitTime; // 日期和时间
     private String requestMethod; // 请求方法
@@ -10,16 +9,20 @@ public class LogDetail {
     private String statusCode; // HTTP状态码
     private String fileSize; // 请求文件的大小
     private String referPage; // The web page which referred the hit
+    private String UA;
 
     // 获取并初始化成员变量
+
+
+    public void setUA(String uA) {
+        UA = uA;
+    }
+
 
     public void setIpAddress(String ipAddress) {
         this.ipAddress = ipAddress;
     }
 
-    public void setIdentity(String identity) {
-        this.identity = identity;
-    }
 
     public void setLoginID(String loginID) {
         this.loginID = loginID;
@@ -45,19 +48,12 @@ public class LogDetail {
         this.fileSize = fileSize;
     }
 
-    public void setReferPage(String referPage) {
-        this.referPage = referPage;
-    }
-
     // 检查是否有字符串值为空
     private boolean checkEmpty() {
         if (!this.ipAddress.isEmpty()) {
             System.out.println("Log error: ip address is empty!");
             return true;
-        } else if (!this.identity.isEmpty()) {
-            System.out.println("Log error: identity is empty!");
-            return true;
-        } else if (!this.loginID.isEmpty()) {
+        }  else if (!this.loginID.isEmpty()) {
             System.out.println("Log error: login ID is empty!");
             return true;
         } else if (!this.hitTime.isEmpty()) {
@@ -75,9 +71,6 @@ public class LogDetail {
         } else if (!this.fileSize.isEmpty()) {
             System.out.println("Log error: file size is empty!");
             return true;
-        } else if (!this.referPage.isEmpty()) {
-            System.out.println("Log error: refer page is empty!");
-            return true;
         }
         return false;
     }
@@ -88,7 +81,8 @@ public class LogDetail {
     @Override
     public String toString() {
         String logString = "";
-        if (!checkEmpty()) {
+        // if (!checkEmpty())
+        {
             logString += this.ipAddress + " - - ";
             logString += "[" + this.hitTime + "] ";
             logString += "\"" + this.requestMethod;
@@ -96,8 +90,8 @@ public class LogDetail {
             logString += " " + this.loginID;
             logString += " " + this.statusCode;
             logString += " " + this.fileSize;
-            logString += " \"" + this.referPage + "\"";
-            logString += " " + this.identity + "\n";
+            logString += " \"" + this.filePath + "\"";
+            logString += " " + this.UA + "\n";
 
         }
         return logString;

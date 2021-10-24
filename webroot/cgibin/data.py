@@ -1,14 +1,6 @@
 #!D:\Anaconda\envs\basic\python.exe
 
-# CGI处理模块
-import cgi
 
-# 创建 FieldStorage 的实例化
-form = cgi.FieldStorage()
-
-# 获取数据
-site_name = form.getvalue('name')
-site_url = form.getvalue('url')
 
 print("Content-type:text/html")
 print()
