@@ -89,7 +89,7 @@ public class ThWorker implements Runnable {
         if (!request.isErr()) {
             Response response = null;
             try {
-                if (request.getResource().endsWith("cgi")) {
+                if (request.getResource().endsWith("py")) {
                     response = CGIResponse.response(request);
                 } else {
                     response = static_response.response(request);

@@ -5,10 +5,39 @@
     <title>Title</title>
 </head>
 <body>
-<form action="calculator.cgi" method="post">
-    <input type="text" name="a" />
+    
+    <div class="content">
+        <p>输入两个运算数:</p>
+<form action="calculator.py" method="post">
+    <input type="text" name="a" /> and
+    
     <input type="text" name="b" />
     <button type="submit">submit</button>
 </form>
+</div>
 </body>
+<style>
+    * {
+        font-family: consolas;
+    }
+    div.dec {
+        position: fixed;
+        border: 5px solid #828282;
+        height: 400px;
+        width: 800px;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        pointer-events: none;
+    }
+    div.content {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        margin-top: 270px;
+    }
+    
+   
+</style>
 </html>
